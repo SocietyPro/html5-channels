@@ -11,7 +11,7 @@ if(Cambrian.JAPI !== undefined && !Cambrian.isMockCambrian){
 
 //appModule = angular.module("app", ['eee-c.angularBindPolymer'])
 
-appModule = angular.module("app", ['ngMaterial'])
+appModule = angular.module("app", ['ngMaterial','wu.masonry'])
 /*.factory("menu", ['$rootScope', function ($rootScope) {
   var self;
   var groups = ['myGroups', 'myPeerLists'];
@@ -77,10 +77,14 @@ appModule = angular.module("app", ['ngMaterial'])
   $scope.listView = "quilt";
 
   $scope.streamView = function () {
+    $( ".cardholder" ).css( "position","relative" );
+    $( ".cardholder" ).addClass( "positionAuto");
     $scope.listView = "stream";
   };
 
   $scope.quiltView = function () {
+    $( ".cardholder" ).css( "position","absolute" );
+    $( ".cardholder" ).removeClass( "positionAuto");
     $scope.listView = "quilt";
   };
 

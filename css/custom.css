@@ -528,3 +528,7 @@ textarea {
 .groupCard div p {
   overflow: hidden;
 }
+.positionAuto {
+  top: auto !important;
+  left: auto !important;
+}
