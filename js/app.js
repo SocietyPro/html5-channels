@@ -113,6 +113,13 @@ appModule = angular.module("app", ['ngMaterial','wu.masonry'])
     $scope.quickAddForm.$setPristine();
     $scope.dialog(null, groupToAdd);
   };
+  $scope.newGroupFromScratch = function () {
+    //var groupToAdd = { name: $scope.newGroupTitle, groupType: $scope.newGroupType, members: []};
+    var groupToAdd = japi.groups.build('open');
+    groupToAdd.channelName = "";
+    groupToAdd.type = "channel";
+    $scope.dialog(null, groupToAdd);
+  };
 
   $scope.duplicateGroup = function (group, e) {
     //var buildGroup = angular.copy(group);
@@ -148,7 +155,12 @@ appModule = angular.module("app", ['ngMaterial','wu.masonry'])
       templateUrl: 'partials/editGroupCard.tmpl.html',
       targetEvent: e,
       controller: ['$scope', '$mdDialog', function ($scope, $mdDialog) {
-        $scope.group = group;
+        var groupToSave = japi.groups.build('open');
+        groupToSave.channelName = group.channelName;
+        groupToSave.type = "channel";
+        groupToSave.purpose = group.purpose;
+        groupToSave.members = [];
+        $scope.group = groupToSave;
         $scope.japi = japi;
         console.log('Setting dialog $scope.newGroupType to ',group.type)
         $scope.groupTypes;
@@ -167,8 +179,11 @@ appModule = angular.module("app", ['ngMaterial','wu.masonry'])
           $mdDialog.hide();
         };
 
-        $scope.save = function (group) {
-          group.save()
+        $scope.save = function () {
+          group.channelName = groupToSave.channelName;
+          group.purpose = groupToSave.purpose;
+          group.members = groupToSave.members;
+          group.save();
           $mdDialog.hide();
         };
       }]
